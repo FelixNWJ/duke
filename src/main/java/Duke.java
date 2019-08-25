@@ -95,7 +95,7 @@ public class Duke {
                             String[] date = dateAndTime[0].split("/");
                             String dateInWords = Duke.dateToWords(date);
                             String time = Duke.timeConverter(dateAndTime[1]);
-                            Task current = new Deadline(information[0].trim(), dateInWords +", " + time);
+                            Deadline current = new Deadline(information[0].trim(), dateInWords +", " + time);
                             tasks.add(current);
                             System.out.println(current.toString());
                             System.out.println("Now you have " + tasks.size() + " task in the list.");
@@ -121,7 +121,7 @@ public class Duke {
                             String[] date = dateAndTime[0].split("/");
                             String dateInWords = Duke.dateToWords(date);
                             String time = Duke.timeConverter(dateAndTime[1]);
-                            Task current = new Deadline(information[0].trim(), dateInWords +", " + time);
+                            Event current = new Event(information[0].trim(), dateInWords +", " + time);
                             tasks.add(current);
                             System.out.println(current.toString());
                             System.out.println("Now you have " + tasks.size() + " task in the list.");
