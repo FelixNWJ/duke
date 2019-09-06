@@ -5,6 +5,7 @@ import duke.command.Command;
 import duke.exception.DukeMissingDescriptionException;
 import duke.exception.DukeEmptyDescriptionException;
 import duke.exception.DukeWrongInputException;
+import duke.exception.DukeWrongTimeFormatException;
 
 import java.util.Scanner;
 
@@ -22,7 +23,8 @@ public class Parser {
      * @throws DukeEmptyDescriptionException when user gives a command without any information where applicable.
      * @throws DukeMissingDescriptionException when user gives a command with missing information or incorrectly formatted information.
      */
-    public static Command parseCommand(String fullLine) throws DukeWrongInputException, DukeEmptyDescriptionException, DukeMissingDescriptionException {
+    public static Command parseCommand(String fullLine) throws DukeWrongInputException, DukeEmptyDescriptionException,
+            DukeMissingDescriptionException, DukeWrongTimeFormatException {
         Scanner commandScanner = new Scanner(fullLine);
         String typeOfCommand = commandScanner.next().trim().toLowerCase();
         String detailsOfCommand = fullLine.substring(typeOfCommand.length()).trim();

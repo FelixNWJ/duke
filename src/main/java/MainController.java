@@ -63,14 +63,17 @@ public class MainController {
     @FXML
     public void initialize() {
         root.setVgrow(mainWindow, Priority.ALWAYS);
-        root.setVgrow(rightWindow, Priority.ALWAYS);
-        root.setVgrow(leftWindow, Priority.ALWAYS);;
+        //root.setVgrow(rightWindow, Priority.ALWAYS);
+        //root.setVgrow(leftWindow, Priority.ALWAYS);;
+        helpArea.prefWidthProperty().bind(leftWindow.widthProperty());
+        helpArea.prefHeightProperty().bind(leftWindow.heightProperty());
         rightWindow.vvalueProperty().bind(dialogBox.heightProperty());
         ImageView temp = new ImageView(mainBackgroundImage);
-        temp.setPreserveRatio(true);
+        temp.setPreserveRatio(false);
         temp.fitWidthProperty().bind(helpArea.widthProperty());
         temp.fitHeightProperty().bind(helpArea.heightProperty());
         helpArea.getChildren().addAll(temp);
+        userInput.nodeOrientationProperty().bind(textInputArea.nodeOrientationProperty());
     }
 
     @FXML

@@ -23,7 +23,8 @@ public class ListCommand extends Command{
      * @param ui DukeUI of Duke Object
      * @param storage StorageData of Duke Object
      */
+    @Override
     public String execute(TaskList tasks, DukeUi ui, StorageData storage) {
-        return ui.printTasks(tasks);
+        return ui.getTasks(tasks);
     }
 }

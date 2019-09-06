@@ -16,47 +16,47 @@ public class DukeUi {
 
     }
 
-    public void printWelcomeMessage() {
+    public String getWelcomeMessage() {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+        return ("Hello from\n" + logo);
     }
 
-    public String printByeMessage() {
+    public String getByeMessage() {
         return "Bye! Hope to see you soon! :)";
     }
 
-    public String printAddDeadlineMessage(Deadline current, int numberOfTasks) {
+    public String getAddDeadlineMessage(Deadline current, int numberOfTasks) {
         String reply = "Got it. I've added this task:";
         String deadLine = current.toString();
         String update = "Now you have " + numberOfTasks + " tasks in the list.";
         return (reply + "\n" + deadLine + "\n" + update);
     }
 
-    public String printTaskDeletedMessage(Task current, int numberOfTasks) {
+    public String getTaskDeletedMessage(Task current, int numberOfTasks) {
         String reply = "Got it. I've removed this task:";
         String taskDeleted = current.toString();
         String update = "Now you have " + numberOfTasks + " tasks in the list.";
         return (reply + "\n" + taskDeleted + "\n" + update);
     }
 
-    public String printTaskDoneMessage(TaskList tasks, int taskNumber) {
+    public String getTaskDoneMessage(TaskList tasks, int taskNumber) {
         String reply = "Nice! I've marked this task as done:";
         String taskDone = tasks.get(taskNumber - 1).toString();
         return (reply + "\n" + taskDone);
     }
 
-    public String printAddEventMessage(Event current, int numberOfTasks) {
+    public String getAddEventMessage(Event current, int numberOfTasks) {
         String reply = "Got it. I've added this task:";
         String event = current.toString();
         String update = "Now you have " + numberOfTasks + " tasks in the list.";
         return (reply + "\n" + event + "\n" + update);
     }
 
-    public String printTasks(TaskList tasks) {
+    public String getTasks(TaskList tasks) {
         String reply = "Here are the tasks in your list:";
         for(int i = 0; i < tasks.size(); i++) {
             Task current = (Task)tasks.get(i);
@@ -65,7 +65,7 @@ public class DukeUi {
         return reply;
     }
 
-    public String printAddTodoMessage(Todo current, int numberOfTasks) {
+    public String getAddTodoMessage(Todo current, int numberOfTasks) {
         String reply = "Got it. I've added this task:";
         String toDo = current.toString();
         String update = "Now you have " + numberOfTasks + " tasks in the list.";
@@ -77,7 +77,7 @@ public class DukeUi {
      * @param task TaskList that contains tasks to check from.
      * @param keyWord keyWord to check if task description contains the keyWord.
      */
-    public String printKeyWordTasks(TaskList task, String keyWord) {
+    public String getKeyWordTasks(TaskList task, String keyWord) {
         String reply = "Here are the matching tasks in your list:";
         for(int i = 0; i < task.size(); i++) {
             Task current = (Task)task.get(i);

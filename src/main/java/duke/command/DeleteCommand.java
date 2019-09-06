@@ -4,6 +4,8 @@ import duke.ui.DukeUi;
 
 import duke.tasklist.TaskList;
 
+import duke.task.Task;
+
 import duke.storagedata.StorageData;
 /**
  * Represents a DeleteCommand Object which contains the task number to be deleted.
@@ -26,10 +28,11 @@ public class DeleteCommand extends Command{
      * @param ui DukeUI of Duke Object
      * @param storage StorageData of Duke Object
      */
+    @Override
     public String execute(TaskList tasks, DukeUi ui, StorageData storage) {
         try {
-            storage.deleteTaskInData(this.taskNumber);
-            return tasks.delete(this.taskNumber, ui);
+            Task deletedTask = storage.deleteTaskInData(this.taskNumber, tasks);
+            return ui.getTaskDeletedMessage(deletedTask, tasks.size());
         } catch (IndexOutOfBoundsException e) {
             return e.getMessage();
         }

@@ -31,12 +31,13 @@ public class TodoCommand extends Command{
      * @param ui DukeUI of Duke Object
      * @param storage StorageData of Duke Object
      */
+    @Override
     public String execute(TaskList tasks, DukeUi ui, StorageData storage) {
         String details = this.getDetails();
         Todo current = new Todo(details);
         tasks.add(current);
-        storage.addTodoData(details);
-        return ui.printAddTodoMessage(current, tasks.size());
+        storage.addData(current);
+        return ui.getAddTodoMessage(current, tasks.size());
 
     }
 }

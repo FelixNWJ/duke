@@ -1,3 +1,4 @@
+import duke.exception.DukeWrongTimeFormatException;
 import javafx.application.Application;
 
 import javafx.fxml.FXMLLoader;
@@ -83,6 +84,8 @@ public class Duke extends Application {
             return ex.getMessage();
         } catch (DukeEmptyDescriptionException exx) {
             return exx.getMessage();
+        } catch (DukeWrongTimeFormatException exxx) {
+            return exxx.getMessage();
         }
     }
     public void start(Stage stage) {
@@ -96,6 +99,14 @@ public class Duke extends Application {
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    /**
+     * Used to get the welcome message from the dukeUI.
+     * @return a welcome message.
+     */
+    public String getWelcomeMessage() {
+        return this.dukeUI.getWelcomeMessage();
     }
 
 /*

@@ -26,11 +26,11 @@ public class DoneCommand extends Command {
      * @param ui DukeUI of Duke Object
      * @param storage StorageData of Duke Object
      */
+    @Override
     public String execute(TaskList tasks, DukeUi ui, StorageData storage) {
         try {
-            tasks.done(this.taskNumber);
-            storage.markTaskDoneInData(this.taskNumber);
-            return ui.printTaskDoneMessage(tasks, this.taskNumber);
+            storage.markTaskDoneInData(this.taskNumber, tasks);
+            return ui.getTaskDoneMessage(tasks, this.taskNumber);
         } catch (DukeTaskDoneException e) {
             return e.getMessage();
         } catch (IndexOutOfBoundsException ex) {
