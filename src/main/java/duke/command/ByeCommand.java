@@ -17,12 +17,12 @@ public class ByeCommand extends Command {
     /**
      * Prints message that is for shutting down of the Duke app.
      * Terminates program afterwards.
+     *
      * @param tasks TaskList of Duke Object.
      * @param ui DukeUI of Duke Object.
      * @param storage StorageData of Duke Object.
      */
     public String execute(TaskList tasks, DukeUi ui, StorageData storage) {
         return ui.printByeMessage();
-        //System.exit(0);
     }
 }

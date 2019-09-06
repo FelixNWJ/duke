@@ -10,6 +10,7 @@ public class Task {
     /**
      * Creates a Task Object.
      * Status of the Task is set to not Done by default.
+     *
      * @param description contains details of the Task.
      */
     public Task(String description) {
@@ -17,6 +18,11 @@ public class Task {
         this.isDone = false;
     }
 
+    /**
+     * Returns the boolean representing whether the task is done or not, done being true, not done being false.
+     *
+     * @return a boolean representing whether the task is done or not.
+     */
     public boolean getStatus() {
         return this.isDone;
     }
@@ -24,6 +30,7 @@ public class Task {
     /**
      * Returns the icon of the status of the Task.
      * A Tick represents done, a Cross represents not done.
+     *
      * @return the status of the Task represented as an icon.
      */
     public String getStatusIcon() {
@@ -34,6 +41,11 @@ public class Task {
         }
     }
 
+    /**
+     * Gets the description of a Task object in general.
+     *
+     * @return the description of the Task object.
+     */
     public String getDescription() {
         return this.description;
     }
@@ -45,6 +57,11 @@ public class Task {
         this.isDone = !this.isDone;
     }
 
+    /**
+     * Returns a string of a general Task object with a status icon that shows if its done or not.
+     *
+     * @return a string representing a general Task object.
+     */
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }

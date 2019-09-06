@@ -27,6 +27,7 @@ public class StorageData {
      * Checks if the file that is passed into the constructor is present.
      * If present, it uses the file as its data and stores it in the StorageData Object.
      * If not present, a FileNotFound exception is throw, where a new File is created and used instead.
+     *
      * @param newData the File that is used to store the data of the Duke App.
      */
     public StorageData(File newData) {
@@ -40,6 +41,7 @@ public class StorageData {
         } catch (FileNotFoundException e) {
             try {
                 new File("data/tasks.txt").createNewFile();
+                assert newData.exists() : "Data not created";
                 this.data = newData;
                 System.out.println("New save data created");
             } catch (IOException ex) {
@@ -48,12 +50,17 @@ public class StorageData {
         }
     }
 
+    /**
+     * Gets the File object that contains the data we want.
+     * @return a File object containing the data.
+     */
     public File getData() {
         return this.data;
     }
 
     /**
      * Adds the data of the Todo Task into the file.
+     *
      * @param toDo contains the details of the Todo Object
      */
     public void addTodoData(String toDo) {
@@ -67,6 +74,7 @@ public class StorageData {
     }
     /**
      * Adds the data of the Deadline Task into the file.
+     *
      * @param description contains the details of the deadline.
      * @param byWhen contains the time when the deadline is due
      */
@@ -81,6 +89,7 @@ public class StorageData {
     }
     /**
      * Adds the data of the Event Task into the file.
+     *
      * @param description contains the details of the Event
      * @param duringWhen contains the time when the event takes place.
      */
@@ -95,6 +104,7 @@ public class StorageData {
     }
     /**
      * Modifies the data of the Task in the file to mark is as done.
+     *
      * @param taskNumber contains the number of the Task is the Duke App.
      */
     public void markTaskDoneInData(int taskNumber) {
@@ -111,6 +121,7 @@ public class StorageData {
                 } else {
 
                         old += line.replace("not done", "done") + System.lineSeparator();
+                        assert old.contains("done") : "Task not marked as done";
                         line = reader.readLine();
                         checker += 1;
 
@@ -128,6 +139,7 @@ public class StorageData {
     }
     /**
      * Deletes the data of the Task in the file.
+     *
      * @param taskNumber contains the number of the Task in the Duke App to be deleted.
      */
     public void deleteTaskInData(int taskNumber) {
@@ -168,39 +180,47 @@ public class StorageData {
     /**
      * Translates the data from the File stored in the StorageData object into Tasks.
      * The Tasks are then stored in an ArrayList.
+     *
      * @return an ArrayList that stores the tasks that have been translated from the data in the File object.
      * @throws FileNotFoundException when the file to used does not exist.
      */
     public ArrayList<Task> load() throws FileNotFoundException {
         ArrayList<Task> taskArrayList = new ArrayList<>(100);
-
+        assert this.data.exists() : "File is null";
         Scanner fileInput = new Scanner(this.data);
         while(fileInput.hasNextLine()) {
             String task = fileInput.next();
             switch(task) {
             case "T":
                 String[] contents = fileInput.nextLine().trim().split("-");
+                assert contents.length == 3 : "Todo task in file not saved/ formatted correctly";
+                assert !contents[2].isEmpty() : "Todo description in file is empty";
                 Task current = new Todo(contents[2].trim());
                 if(contents[1].trim().equals("done")) {
                     current.markAsDone();
+                    assert current.getStatus() == true : "Todo not marked as done when method indicates so";
                 }
                 taskArrayList.add(current);
                 break;
 
             case "D":
                 contents = fileInput.nextLine().trim().split("-");
+                assert contents.length == 4 : "Deadline task in file not saved/ formatted correctly";
                 current = new Deadline(contents[2].trim(), contents[3].trim());
                 if(contents[1].trim().equals("done")) {
                     current.markAsDone();
+                    assert current.getStatus() == true : "Deadline not marked as done when method indicates so";
                 }
                 taskArrayList.add(current);
                 break;
 
             case "E":
                 contents = fileInput.nextLine().trim().split("-");
+                assert contents.length == 4 : "Event task in file not saved/ formatted correctly";
                 current = new Event(contents[2].trim(), contents[3].trim());
                 if(contents[1].trim().equals("done")) {
                     current.markAsDone();
+                    assert current.getStatus() == true : "Event not marked as done when method indicates so";
                 }
                 taskArrayList.add(current);
                 break;

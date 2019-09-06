@@ -13,6 +13,7 @@ public class DeleteCommand extends Command{
 
     /**
      * Instantiates a DeleteCommand object.
+     *
      * @param details contains the task number of the task to be deleted.
      */
     public DeleteCommand(String details) {
@@ -22,6 +23,7 @@ public class DeleteCommand extends Command{
 
     /**
      * Deletes the task number from the TaskList in the Duke Object, then erases the data from the file in StorageData.
+     *
      * @param tasks TaskList of Duke Object
      * @param ui DukeUI of Duke Object
      * @param storage StorageData of Duke Object

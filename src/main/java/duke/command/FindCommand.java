@@ -14,6 +14,7 @@ public class FindCommand extends Command {
 
     /**
      * Creates a Find Command Object
+     *
      * @param details contains the keyword used to find the specific tasks required.
      */
     public FindCommand(String details) {
@@ -23,6 +24,7 @@ public class FindCommand extends Command {
 
     /**
      * Finds the Tasks that contains the keyword in the TaskList and prints out using the UI.
+     *
      * @param tasks TaskList of Duke App.
      * @param ui UI of Duke App.
      * @param storage StorageData of Duke App.

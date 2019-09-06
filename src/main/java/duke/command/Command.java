@@ -17,6 +17,15 @@ public abstract class Command {
     private String details;
 
     /**
+     * Instantiates a Command Object which has no details.
+     *
+     * @return a Command Object
+     */
+    public Command() {
+        this.details = "";
+    }
+
+    /**
      * Instantiates a TodoCommand Object
      *
      * @param details the details of the task to be stored in the TodoCommand Object
@@ -114,14 +123,10 @@ public abstract class Command {
     }
 
     /**
-     * Instantiates a Command Object which has no details.
+     * Returns the description of the Command.
      *
-     * @return a Command Object
+     * @return the details of the Command.
      */
-    public Command() {
-        this.details = "";
-    }
-
     public String getDetails() {
         return this.details;
     }
