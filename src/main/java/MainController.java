@@ -1,21 +1,30 @@
-import com.sun.javafx.iio.gif.GIFImageLoader2;
-import com.sun.javafx.iio.gif.GIFImageLoaderFactory;
-import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+
 import javafx.scene.image.Image;
+
 import javafx.fxml.FXML;
+
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
+
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
-import javafx.scene.text.Text;
 
-import java.awt.*;
+import javafx.scene.layout.VBox;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Priority;
 
+import javafx.stage.Stage;
+
+/**
+ * Controller class for the main window of the Duke application.
+ * Command Line Input is at the bottom left of the window.
+ * User input entered in reflected on the right window, along with the reply of the Duke application.
+ * Any commands that involve listing potentially more than one task will output the list above the command line input.
+ */
 public class MainController {
     @FXML
     private VBox root;
@@ -56,10 +65,21 @@ public class MainController {
     private Image taskImage = new Image(this.getClass().getResourceAsStream("/images/Task.jpg"));
     private Image mainBackgroundImage = new Image(this.getClass().getResourceAsStream("/images/mainBackground.png"));
 
-    public void setDuke(Duke d) {
-        this.duke = d;
+    /**
+     * Sets the Duke attribute of the controller to a particular Duke object to process user input.
+     *
+     * @param mainDuke a Duke object that we want to use to process our user input.
+     */
+    public void setDuke(Duke mainDuke) {
+        this.duke = mainDuke;
     }
 
+    /**
+     * Initialises the Stage properties that is shown.
+     * The children which are windows in the Stage are set to always grow when the root grows.
+     * Scrollpane on the right is binded to the Hbox inside it so that the scrollpane automatically scrolls down.
+     * Sets a background image to the top left of the stage window and binds it so that it resizes accordingly
+     */
     @FXML
     public void initialize() {
         root.setVgrow(mainWindow, Priority.ALWAYS);
@@ -76,15 +96,23 @@ public class MainController {
         userInput.nodeOrientationProperty().bind(textInputArea.nodeOrientationProperty());
     }
 
+    /**
+     * Generates an output based on the command input by the user in the Textfield userInput.
+     * If the command by the user potentially involves listing multiple tasks, the list is displayed in listArea.
+     * Otherwise, user input and output by Duke are displayed in the dialogBox.
+     * If the command by the user is "bye", the application will shut down.
+     */
     @FXML
-    void handleUserInput() {
+    public void handleUserInput() {
         String input = userInput.getText();
         String response = this.duke.run(input);
         DialogBox duke = DialogBox.getDukeDialog(response, dialogImage);
-        if(input.equals("list")) {
+        if(input.equals("list") || input.contains("find")) {
             duke = DialogBox.getDukeDialog("List in the main area.", dialogImage);
+            DialogBox list = DialogBox.getDukeDialog(response, taskImage);
+            list.setResizeImage();
             dummyArea.getChildren().clear();
-            dummyArea.getChildren().addAll(DialogBox.getDukeDialog(response, taskImage));
+            dummyArea.getChildren().addAll(list);
         }
         DialogBox user = DialogBox.getUserDialog(input, userImage);
         dialogBox.add(user, 0, responseArea++);
@@ -93,7 +121,8 @@ public class MainController {
         duke.setAlignment(Pos.CENTER_RIGHT);
         userInput.clear();
         if(input.equals("bye")) {
-            System.exit(0);
+            ((Stage) mainWindow.getScene().getWindow()).close();
         }
+
     }
 }

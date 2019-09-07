@@ -3,32 +3,14 @@ import javafx.application.Application;
 
 import javafx.fxml.FXMLLoader;
 
-import javafx.geometry.Pos;
-
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
 
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.layout.Region;
 
 import javafx.stage.Stage;
 
-import java.awt.Dimension;
-
-import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.Scanner;
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.FileWriter;
 import java.io.File;
 
 import duke.ui.DukeUi;
@@ -45,17 +27,28 @@ import duke.exception.DukeWrongInputException;
 import duke.exception.DukeEmptyDescriptionException;
 import duke.exception.DukeMissingDescriptionException;
 
+/**
+ * Duke class that is an application that mainly contains capabilities to store, locate, and mark tasks as done.
+ * Contains a dukeUI that outputs Strings based on the command input by the user.
+ * Contains a storage that has the file that we write to and read from in order to save and load ask data respectively.
+ * Contains a tasks that is TaskList which wraps around an ArrayList that stores our Task objects.
+ */
 public class Duke extends Application {
     private DukeUi dukeUI;
     private StorageData storage;
     private TaskList tasks;
 
+    /**
+     * Creates a Duke object that calls the Constructor for the Duke object that uses a String as an argument.
+     * Created due to Application requiring a constructor that takes in no parameters.
+     */
     public Duke() {
         this("data/tasks.txt");
     }
 
     /**
      * Instantiates a Duke Object.
+     *
      * @param filePath This is the File that is used to load data from and save into.
      */
     public Duke(String filePath) {
@@ -77,6 +70,8 @@ public class Duke extends Application {
     public String run(String input) {
         try {
             Command c = Parser.parseCommand(input);
+            assert !input.isEmpty() : "Empty command created";
+            assert c != null : "Parser.parseCommand(input) did not create a command object";
             return c.execute(this.tasks, this.dukeUI, this.storage);
         } catch (DukeWrongInputException e) {
             return e.getMessage();
@@ -88,12 +83,22 @@ public class Duke extends Application {
             return exxx.getMessage();
         }
     }
+
+    /**
+     * Method that loads and shows the Graphical User Interface when we start up the Duke Application.
+     * Sets title of the Duke application and makes it resizable.
+     * Sets the controller of the root to be a Duke object that is created at this point before displaying the window.
+     *
+     * @param stage Stage that we want to display to the user.
+     */
     public void start(Stage stage) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Duke.class.getResource("/view/MainWindow.fxml"));
             VBox vb = fxmlLoader.load();
             Scene scene = new Scene(vb);
             stage.setScene(scene);
+            stage.setTitle("Isla");
+            stage.setResizable(true);
             fxmlLoader.<MainController>getController().setDuke(new Duke());
             stage.show();
         } catch (IOException e) {
@@ -109,11 +114,7 @@ public class Duke extends Application {
         return this.dukeUI.getWelcomeMessage();
     }
 
-/*
-    public static void main(String[] args) {
-        new Duke("data/tasks.txt").run();
-    }
- */
+
 }
 
 

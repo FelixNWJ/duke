@@ -20,6 +20,7 @@ public class EventCommand extends Command{
     private String duringWhen;
     /**
      * Instantiates a Event Object
+     *
      * @param details contains both the description of the Event and when the Event occurs.
      * @throws DukeEmptyDescriptionException when details is an empty string.
      * @throws DukeMissingDescriptionException when details contains missing information or is in a wrong format.
@@ -43,6 +44,7 @@ public class EventCommand extends Command{
     /**
      * Adds the Event Object to the TaskList of the Duke Object.
      * Stores the Event in the StorageData and prints out a message to confirm that it has been added.
+     *
      * @param tasks TaskList of Duke Object
      * @param ui DukeUI of Duke Object
      * @param storage StorageData of Duke Object
@@ -50,6 +52,7 @@ public class EventCommand extends Command{
     @Override
     public String execute(TaskList tasks, DukeUi ui, StorageData storage) {
         Event current = new Event(this.description, this.duringWhen);
+        assert current != null : "Event object is not created";
         tasks.add(current);
         storage.addData(current);
         return ui.getAddEventMessage(current, tasks.size());

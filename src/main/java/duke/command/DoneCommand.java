@@ -14,6 +14,7 @@ public class DoneCommand extends Command {
     private int taskNumber;
     /**
      * Instantiates a DoneCommand object.
+     *
      * @param details contains the task number of the task that has been completed.
      */
     public DoneCommand(String details) {
@@ -22,6 +23,7 @@ public class DoneCommand extends Command {
     }
     /**
      * Marks the task as done from the TaskList in the Duke Object, then updates the data from the file in StorageData.
+     *
      * @param tasks TaskList of Duke Object
      * @param ui DukeUI of Duke Object
      * @param storage StorageData of Duke Object
